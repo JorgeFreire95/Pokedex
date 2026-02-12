@@ -212,7 +212,7 @@ const PokemonDetail = () => {
 
       {pokemon.moves_localized && (
         <DataContainer>
-          <SectionTitle>Movimientos (Gen 1)</SectionTitle>
+          <SectionTitle>Movimientos</SectionTitle>
           <MovesList>
             {pokemon.moves_localized.map((m, index) => (
               <MoveBadge key={`${m.name}-${index}`}>

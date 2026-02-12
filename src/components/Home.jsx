@@ -50,7 +50,7 @@ const Title = styled.h1`
 const Home = () => {
     return (
         <HomeContainer>
-            <Title>POKEDEX OS v1.0</Title>
+            <Title>POKEDEX</Title>
 
             <MenuButton to="/pokemons">
                 Ver Pokemones

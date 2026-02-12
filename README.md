@@ -1,4 +1,4 @@
-# 📱 Pokedex - Mobile App
+# 📱 Pokedex - Mobile App -
 
 Una aplicación móvil estilo Pokedex clásica desarrollada con tecnologías web modernas y convertida a nativa para Android. Muestra los 151 Pokémon originales de la primera generación con información detallada, estadísticas, movimientos y mucho más, todo completamente en español.
 
