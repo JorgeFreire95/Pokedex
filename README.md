@@ -11,6 +11,7 @@ Una aplicación móvil estilo Pokedex clásica desarrollada con tecnologías web
     *   Estadísticas Base (HP, Ataque, Defensa, Velocidad, etc.).
     *   **Habilidades**: Incluyendo indicador de habilidades ocultas (O).
     *   **Movimientos**: Lista completa de movimientos aprendibles en la 1ª Generación.
+*   **Selección de Generación**: Navegación organizada por generaciones (actualmente Kanto/Gen 1) para Pokémon, Objetos y Ubicaciones.
 *   **Localización Total**: Nombres de ataques, habilidades, tipos y estadísticas completamente en español.
 
 ### 🗺️ Exploración y Objetos

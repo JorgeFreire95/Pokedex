@@ -8,6 +8,9 @@ import PokemonList from './components/PokemonList';
 import PokemonDetail from './components/PokemonDetail';
 import ItemsList from './components/ItemsList';
 import LocationsList from './components/LocationsList';
+import GenerationSelection from './components/GenerationSelection';
+import ItemGenerationSelection from './components/ItemGenerationSelection';
+import LocationGenerationSelection from './components/LocationGenerationSelection';
 import { AnimatePresence } from 'framer-motion';
 
 const AnimatedRoutes = () => {
@@ -16,9 +19,12 @@ const AnimatedRoutes = () => {
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Home />} />
-        <Route path="/pokemons" element={<PokemonList />} />
-        <Route path="/items" element={<ItemsList />} />
-        <Route path="/locations" element={<LocationsList />} />
+        <Route path="/pokemons" element={<GenerationSelection />} />
+        <Route path="/pokemons/list" element={<PokemonList />} />
+        <Route path="/items" element={<ItemGenerationSelection />} />
+        <Route path="/items/list" element={<ItemsList />} />
+        <Route path="/locations" element={<LocationGenerationSelection />} />
+        <Route path="/locations/list" element={<LocationsList />} />
         <Route path="/pokemon/:id" element={<PokemonDetail />} />
       </Routes>
     </AnimatePresence>

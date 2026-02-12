@@ -139,7 +139,7 @@ const LocationsList = () => {
   return (
     <Container>
       <Header>
-        <BackButton to="/">Atrás</BackButton>
+        <BackButton to="/locations">Atrás</BackButton>
         <Title>Mapa y Gimnasios</Title>
       </Header>
 

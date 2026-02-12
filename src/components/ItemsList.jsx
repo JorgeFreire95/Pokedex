@@ -156,7 +156,7 @@ const ItemsList = () => {
   return (
     <div>
       <Header>
-        <BackButton to="/">Atrás</BackButton>
+        <BackButton to="/items">Atrás</BackButton>
         <Title>Objetos</Title>
       </Header>
       <ListContainer>
