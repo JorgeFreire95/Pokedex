@@ -2,6 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useSound } from '../hooks/useSound';
 
 const PokedexHeader = styled.div`
   display: flex;
@@ -127,8 +128,10 @@ import { DPadProvider, useDPad } from '../contexts/DPadContext';
 const DPadControls = ({ scrollRef }) => {
   const { onLeft, onRight } = useDPad();
   const navigate = useNavigate();
+  const { playSound } = useSound();
 
   const handleScroll = (direction) => {
+    playSound('move');
     if (scrollRef.current) {
       scrollRef.current.scrollBy({
         top: direction === 'up' ? -100 : 100,
@@ -138,17 +141,19 @@ const DPadControls = ({ scrollRef }) => {
   };
 
   const handleLeft = () => {
+    playSound('move');
     if (onLeft) onLeft();
   };
 
   const handleRight = () => {
+    playSound('move');
     if (onRight) onRight();
   };
 
   return (
     <Controls>
       <div style={{ display: 'flex', gap: '10px' }}>
-        <HomeButton onClick={() => navigate('/')} title="Menú Principal" />
+        <HomeButton onClick={() => { playSound('click'); navigate('/'); }} title="Menú Principal" />
       </div>
       <DPad>
         <DPadButton className="up" onClick={() => handleScroll('up')} />

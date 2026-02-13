@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { SoundProvider } from './contexts/SoundContext';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { GlobalStyles } from './styles/GlobalStyles';
 import Layout from './components/Layout';
@@ -35,9 +36,11 @@ function App() {
   return (
     <Router>
       <GlobalStyles />
-      <Layout>
-        <AnimatedRoutes />
-      </Layout>
+      <SoundProvider>
+        <Layout>
+          <AnimatedRoutes />
+        </Layout>
+      </SoundProvider>
     </Router>
   );
 }

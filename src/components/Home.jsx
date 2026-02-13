@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useSound } from '../hooks/useSound';
 
 const HomeContainer = styled.div`
   display: flex;
@@ -48,23 +49,24 @@ const Title = styled.h1`
 `;
 
 const Home = () => {
-    return (
-        <HomeContainer>
-            <Title>POKEDEX</Title>
+  const { playSound } = useSound();
+  return (
+    <HomeContainer>
+      <Title>POKEDEX</Title>
 
-            <MenuButton to="/pokemons">
-                Ver Pokemones
-            </MenuButton>
+      <MenuButton to="/pokemons" onClick={() => playSound('open')}>
+        Ver Pokemones
+      </MenuButton>
 
-            <MenuButton to="/items">
-                Ver Objetos
-            </MenuButton>
+      <MenuButton to="/items" onClick={() => playSound('open')}>
+        Ver Objetos
+      </MenuButton>
 
-            <MenuButton to="/locations">
-                Ver Rutas
-            </MenuButton>
-        </HomeContainer>
-    );
+      <MenuButton to="/locations" onClick={() => playSound('open')}>
+        Ver Rutas
+      </MenuButton>
+    </HomeContainer>
+  );
 };
 
 export default Home;

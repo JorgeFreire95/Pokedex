@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { getPokemonDetails } from '../services/api';
+import { useSound } from '../hooks/useSound';
 
 const Card = styled(motion(Link))`
   display: flex;
@@ -83,6 +84,7 @@ const typeColors = {
 
 const PokemonCard = ({ name, url }) => {
   const [details, setDetails] = useState(null);
+  const { playSound } = useSound();
 
   useEffect(() => {
     getPokemonDetails(url).then(data => setDetails(data));
@@ -96,6 +98,7 @@ const PokemonCard = ({ name, url }) => {
   return (
     <Card
       to={`/pokemon/${details.id}`}
+      onClick={() => playSound('open')}
       typecolor={color}
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}

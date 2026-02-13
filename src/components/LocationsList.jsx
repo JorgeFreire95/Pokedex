@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { kantoGyms } from '../data/gyms';
+import { useSound } from '../hooks/useSound';
 
 import KantoMap from './KantoMap';
 
@@ -135,11 +136,12 @@ const typeColors = {
 
 const LocationsList = () => {
   const [selectedCity, setSelectedCity] = useState(null);
+  const { playSound } = useSound();
 
   return (
     <Container>
       <Header>
-        <BackButton to="/locations">Atrás</BackButton>
+        <BackButton to="/locations" onClick={() => playSound('back')}>Atrás</BackButton>
         <Title>Mapa y Gimnasios</Title>
       </Header>
 
@@ -152,7 +154,7 @@ const LocationsList = () => {
           <GymCard
             key={gym.city}
             color={typeColors[gym.type]}
-            onClick={() => setSelectedCity(gym.city)}
+            onClick={() => { playSound('open'); setSelectedCity(gym.city); }}
             $isSelected={selectedCity === gym.city}
           >
             <GymInfo>

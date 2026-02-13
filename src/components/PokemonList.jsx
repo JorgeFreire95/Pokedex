@@ -5,6 +5,7 @@ import { getPokemonList } from '../services/api';
 import PokemonCard from './PokemonCard';
 
 import { useDPad } from '../contexts/DPadContext';
+import { useSound } from '../hooks/useSound';
 
 const ListContainer = styled.div`
   display: grid;
@@ -51,16 +52,19 @@ const PokemonList = () => {
     const [loading, setLoading] = useState(true);
     const [offset, setOffset] = useState(0);
     const { setOnLeft, setOnRight } = useDPad();
+    const { playSound } = useSound();
     const LIMIT = 30;
     const TOTAL_GEN1 = 151;
 
     const handleNext = () => {
+        playSound('move');
         if (offset + LIMIT < TOTAL_GEN1) {
             setOffset(o => o + LIMIT);
         }
     };
 
     const handlePrev = () => {
+        playSound('move');
         if (offset - LIMIT >= 0) {
             setOffset(o => o - LIMIT);
         }

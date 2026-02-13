@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { getItemsList } from '../services/api';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useSound } from '../hooks/useSound';
 
 const ListContainer = styled.div`
   display: grid;
@@ -142,6 +143,7 @@ const ItemsList = () => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedItem, setSelectedItem] = useState(null);
+  const { playSound } = useSound();
 
   useEffect(() => {
     // Fetch enough to cover most Gen 1 items
@@ -156,12 +158,12 @@ const ItemsList = () => {
   return (
     <div>
       <Header>
-        <BackButton to="/items">Atrás</BackButton>
+        <BackButton to="/items" onClick={() => playSound('back')}>Atrás</BackButton>
         <Title>Objetos</Title>
       </Header>
       <ListContainer>
         {items.map(item => (
-          <ItemCard key={item.name} onClick={() => setSelectedItem(item)}>
+          <ItemCard key={item.name} onClick={() => { playSound('open'); setSelectedItem(item); }}>
             {item.sprite && <ItemImage src={item.sprite} alt={item.name} />}
             <ItemName>{item.name}</ItemName>
           </ItemCard>
@@ -174,7 +176,7 @@ const ItemsList = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setSelectedItem(null)}
+            onClick={() => { playSound('close'); setSelectedItem(null); }}
           >
             <ModalContent
               initial={{ scale: 0.8, opacity: 0 }}
@@ -187,7 +189,7 @@ const ItemsList = () => {
               <ModalDescription>
                 {selectedItem.description}
               </ModalDescription>
-              <CloseButton onClick={() => setSelectedItem(null)}>
+              <CloseButton onClick={() => { playSound('close'); setSelectedItem(null); }}>
                 Cerrar
               </CloseButton>
             </ModalContent>

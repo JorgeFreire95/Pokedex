@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { getPokemonById } from '../services/api';
 import { typeTranslations, statTranslations } from '../utils/translations';
+import { useSound } from '../hooks/useSound';
 
 const DetailContainer = styled(motion.div)`
   padding: 10px;
@@ -157,6 +158,7 @@ const typeColors = {
 const PokemonDetail = () => {
   const { id } = useParams();
   const [pokemon, setPokemon] = useState(null);
+  const { playSound } = useSound();
 
   useEffect(() => {
     setPokemon(null);
@@ -172,7 +174,7 @@ const PokemonDetail = () => {
       exit={{ x: -300, opacity: 0 }}
     >
       <Header>
-        <BackButton to="/pokemons">Volver</BackButton>
+        <BackButton to="/pokemons" onClick={() => playSound('back')}>Volver</BackButton>
         <span>#{pokemon.id.toString().padStart(3, '0')}</span>
       </Header>
 

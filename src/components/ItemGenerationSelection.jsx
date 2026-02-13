@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { useSound } from '../hooks/useSound';
 
 const Container = styled.div`
   display: flex;
@@ -46,15 +47,16 @@ const GenButton = styled(Link)`
 `;
 
 const ItemGenerationSelection = () => {
-    return (
-        <Container>
-            <Title>SELECCIONAR GENERACION</Title>
+  const { playSound } = useSound();
+  return (
+    <Container>
+      <Title>SELECCIONAR GENERACION</Title>
 
-            <GenButton to="/items/list">
-                Primera Generación (Kanto)
-            </GenButton>
-        </Container>
-    );
+      <GenButton to="/items/list" onClick={() => playSound('open')}>
+        Primera Generación (Kanto)
+      </GenButton>
+    </Container>
+  );
 };
 
 export default ItemGenerationSelection;
