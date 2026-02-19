@@ -29,14 +29,16 @@ const RotomSpike = styled.div`
 const RotomEye = styled.div`
   width: 80px;
   height: 100px;
-  background: radial-gradient(ellipse at 60% 30%, #88CCFF 0%, #44AAFF 40%, #0066CC 100%);
+  background: ${props => props.$active
+    ? 'radial-gradient(ellipse at 60% 30%, #CCFFFF 0%, #33CCFF 40%, #0099FF 100%)'
+    : 'radial-gradient(ellipse at 60% 30%, #88CCFF 0%, #44AAFF 40%, #0066CC 100%)'};
   border: 4px solid #1a1a1a;
   border-radius: 50%;
   margin: 0 15px;
   position: relative;
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  box-shadow: ${props => props.$active ? '0 0 15px #00FFFF, inset 0 0 10px #FFFFFF' : '0 0 10px rgba(0,0,0,0.3)'};
   overflow: hidden;
-  transition: transform 0.1s ease;
+  transition: all 0.1s ease;
 
   &::after {
     content: '';
@@ -50,8 +52,6 @@ const RotomEye = styled.div`
     transform: rotate(15deg);
     box-shadow: 0 0 5px rgba(255,255,255,0.8);
   }
-
-  /* Optional: Simple blink effect could be added here later */
 `;
 
 /* Removed BigBlueLight, SmallLights, Light */
@@ -188,13 +188,40 @@ const DPadControls = ({ scrollRef }) => {
 
 const LayoutContent = ({ children }) => {
   const scrollRef = React.useRef(null);
+  const location = useLocation();
+  const [isInteracting, setIsInteracting] = React.useState(false);
+  const timeoutRef = React.useRef(null);
+
+  React.useEffect(() => {
+    const triggerInteraction = () => {
+      setIsInteracting(true);
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      timeoutRef.current = setTimeout(() => {
+        setIsInteracting(false);
+      }, 150);
+    };
+
+    window.addEventListener('mousedown', triggerInteraction);
+    window.addEventListener('keydown', triggerInteraction);
+    window.addEventListener('touchstart', triggerInteraction);
+
+    // Also trigger on location change
+    triggerInteraction();
+
+    return () => {
+      window.removeEventListener('mousedown', triggerInteraction);
+      window.removeEventListener('keydown', triggerInteraction);
+      window.removeEventListener('touchstart', triggerInteraction);
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, [location]);
 
   return (
     <>
       <PokedexHeader>
         <RotomSpike />
-        <RotomEye />
-        <RotomEye />
+        <RotomEye $active={isInteracting} />
+        <RotomEye $active={isInteracting} />
       </PokedexHeader>
 
       <ScreenContainer>

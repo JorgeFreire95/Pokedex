@@ -1,3 +1,6 @@
+import { TextToSpeech } from '@capacitor-community/text-to-speech';
+import { Capacitor } from '@capacitor/core';
+
 export const soundSynthesizer = {
     ctx: null,
 
@@ -103,11 +106,29 @@ export const soundSynthesizer = {
         }
     },
 
-    speak: (text) => {
-        if (!('speechSynthesis' in window)) return;
+    speak: async (text) => {
+        // Stop any previous speech first
+        await soundSynthesizer.cancelSpeech();
 
-        // Cancel any current speech
-        window.speechSynthesis.cancel();
+        // Check if we are on a native platform (Android/iOS)
+        if (Capacitor.isNativePlatform()) {
+            try {
+                await TextToSpeech.speak({
+                    text: text,
+                    lang: 'es-ES',
+                    rate: 1.0,
+                    pitch: 1.0,
+                    volume: 1.0,
+                    category: 'ambient',
+                });
+                return;
+            } catch (error) {
+                console.error("Native TTS failed, falling back to Web API", error);
+            }
+        }
+
+        // Web API Fallback
+        if (!('speechSynthesis' in window)) return;
 
         const utterance = new SpeechSynthesisUtterance(text);
 
@@ -135,7 +156,15 @@ export const soundSynthesizer = {
         window.speechSynthesis.speak(utterance);
     },
 
-    cancelSpeech: () => {
+    cancelSpeech: async () => {
+        if (Capacitor.isNativePlatform()) {
+            try {
+                await TextToSpeech.stop();
+            } catch (e) {
+                console.warn("Error stopping native speech", e);
+            }
+        }
+
         if ('speechSynthesis' in window) {
             window.speechSynthesis.cancel();
         }

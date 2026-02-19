@@ -40,6 +40,34 @@ const Name = styled.h1`
   text-transform: capitalize;
   font-size: 20px;
   text-align: center;
+  margin-right: 10px;
+`;
+
+const NameContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5px;
+`;
+
+const SpeakerButton = styled.button`
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #555;
+  padding: 5px;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+  
+  &:hover {
+    background-color: rgba(0,0,0,0.1);
+    color: #000;
+  }
+
+  &:active {
+    transform: scale(0.9);
+  }
 `;
 
 const ImageContainer = styled.div`
@@ -169,19 +197,21 @@ const PokemonDetail = () => {
     soundSynthesizer.cancelSpeech();
   }, [id]);
 
+  const getNarrative = () => {
+    if (!pokemon) return '';
+    const typeText = pokemon.types.map(t => typeTranslations[t.type.name] || t.type.name).join(' y ');
+
+    const moveSamples = pokemon.moves_localized
+      ? pokemon.moves_localized.slice(0, 3).map(m => m.name).join(', ')
+      : '';
+
+    return `${pokemon.name}. Pokemon de tipo ${typeText}. ${moveSamples ? `Conoce movimientos como ${moveSamples}.` : ''}`;
+  };
+
   useEffect(() => {
     if (pokemon) {
-      // Construct narrative
-      const typeText = pokemon.types.map(t => typeTranslations[t.type.name] || t.type.name).join(' y ');
-
-      const moveSamples = pokemon.moves_localized
-        ? pokemon.moves_localized.slice(0, 3).map(m => m.name).join(', ')
-        : '';
-
-      const narrative = `${pokemon.name}. Pokemon de tipo ${typeText}. ${moveSamples ? `Conoce movimientos como ${moveSamples}.` : ''}`;
-
-      // Speak
-      soundSynthesizer.speak(narrative);
+      // Speak (Autoplay - might be blocked on mobile)
+      soundSynthesizer.speak(getNarrative());
     }
 
     // Cleanup on unmount
@@ -189,6 +219,12 @@ const PokemonDetail = () => {
       soundSynthesizer.cancelSpeech();
     };
   }, [pokemon]);
+
+  const handleSpeak = () => {
+    if (pokemon) {
+      soundSynthesizer.speak(getNarrative());
+    }
+  };
 
   if (!pokemon) return <div style={{ textAlign: 'center', marginTop: '50px' }}>Cargando...</div>;
 
@@ -207,7 +243,12 @@ const PokemonDetail = () => {
         <Sprite src={pokemon.sprites.front_default} alt={pokemon.name} />
       </ImageContainer>
 
-      <Name>{pokemon.name}</Name>
+      <NameContainer>
+        <Name>{pokemon.name}</Name>
+        <SpeakerButton onClick={handleSpeak} title="Reproducir descripción">
+          🔊
+        </SpeakerButton>
+      </NameContainer>
 
       <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '10px' }}>
         {pokemon.types.map(t => (
