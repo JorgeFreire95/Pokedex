@@ -1,50 +1,48 @@
-# 📱 Pokedex - Mobile App -
+# 📱 Pokedex - Mobile App
 
-Una aplicación móvil estilo Pokedex clásica desarrollada con tecnologías web modernas y convertida a nativa para Android. Muestra los 151 Pokémon originales de la primera generación con información detallada, estadísticas, movimientos y mucho más, todo completamente en español.
+Una aplicación móvil estilo Pokedex nostálgica y moderna, desarrollada con tecnologías web y convertida a nativa para Android. Ofrece una experiencia inmersiva para explorar Pokémon de **todas las generaciones (Gen 1 - Gen 9)**, con información detallada, narración por voz y efectos de sonido.
 
 ## 🚀 Características Principales
 
 ### 🔴 Funciones Principales
-*   **Generación 1 Completa**: Acceso a la base de datos de los 151 Pokémon originales (Kanto).
+*   **Soporte Multi-Generación**: Acceso a la base de datos de Pokémon desde Kanto (Gen 1) hasta Paldea (Gen 9).
 *   **Detalles Exhaustivos**:
-    *   Sprite (pixel art) y tipos traducidos.
-    *   Estadísticas Base (HP, Ataque, Defensa, Velocidad, etc.).
-    *   **Habilidades**: Incluyendo indicador de habilidades ocultas (O).
-    *   **Movimientos**: Lista completa de movimientos aprendibles en la 1ª Generación.
-*   **Selección de Generación**: Navegación organizada por generaciones (actualmente Kanto/Gen 1) para Pokémon, Objetos y Ubicaciones.
-*   **Localización Total**: Nombres de ataques, habilidades, tipos y estadísticas completamente en español.
+    *   Sprites (pixel art y oficiales) y tipos traducidos.
+    *   Estadísticas Base, Habilidades (incluyendo ocultas) y Movimientos.
+    *   **Narración de Voz (Text-to-Speech)**: La Pokedex "lee" la descripción del Pokémon, simulando la experiencia del anime/juego.
+*   **Selección de Generación**: Interfaz dedicada para navegar fácilmente entre las distintas generaciones de Pokémon, Objetos y Ubicaciones.
+*   **Efectos de Sonido**: Interfaz reactiva con sonidos para navegación, selección y eventos (con control de volumen).
+*   **Localización Total**: Textos, ataques y datos completamente en español.
 
-### 🗺️ Exploración y Objetos
-*   **Mapa Interactivo de Kanto**:
-    *   Visualización de la región de Kanto en estilo pixel art.
-    *   **Gimnasios y Líderes**: Información detallada de los 8 líderes de gimnasio.
-    *   **Medallas**: Visualización de las medallas obtenidas.
-    *   **Interacción**: Al seleccionar un líder, se resalta su ciudad en el mapa.
+### 🗺️ Exploración y Mapas
+*   **Mapas Interactivos**:
+    *   **Kanto**: Visualización clásica en pixel art con líderes de gimnasio y medallas.
+    *   **Paldea**: Nuevo mapa de la región de la 9ª generación.
+    *   **Interacción**: Al seleccionar ubicaciones o líderes, el mapa reacciona para mostrar información relevante.
 *   **Mochila de Objetos**:
-    *   Lista visual de objetos clásicos (Pociones, Pokéballs, Piedras evolutivas).
-    *   Detalles y descripciones en español al pulsar sobre cada objeto.
+    *   Lista visual de objetos clasificados por generación.
+    *   Detalles y descripciones en español.
 
 ### 🎮 Controles y Navegación
-La aplicación simula la experiencia de una Pokedex real:
-*   **Pad Direccional (D-Pad)**:
-    *   ⬆️ ⬇️ **Arriba/Abajo**: Scroll vertical en cualquier pantalla.
-    *   ⬅️ ➡️ **Izquierda/Derecha**: Cambiar de página en la lista de Pokémon (Anterior/Siguiente).
-*   **Botón de Inicio (Negro)**: Situado en la esquina inferior izquierda, permite volver al **Menú Principal** desde cualquier sección.
-*   **Luz Azul (Header)**: Indicador visual interactivo.
+La aplicación simula la experiencia de una Pokedex física:
+*   **Pad Direccional (D-Pad)**: Navegación por listas y scroll vertical.
+*   **Botón de Inicio**: Regreso rápido al menú principal.
+*   **Indicadores Visuales**: Luces y animaciones (como los ojos de Rotom) que reaccionan a la voz y acciones.
 
 ## 🛠️ Tecnologías Utilizadas
 
 ### Frontend
-*   **[React](https://reactjs.org/)**: Librería principal para la interfaz de usuario.
-*   **[Vite](https://vitejs.dev/)**: Empaquetador y entorno de desarrollo ultrarrápido.
-*   **[Styled Components](https://styled-components.com/)**: Para estilos CSS-in-JS y el sistema de temas.
-*   **[Framer Motion](https://www.framer.com/motion/)**: Para las animaciones de transición y efectos de interfaz.
-*   **[React Router](https://reactrouter.com/)**: Para el enrutamiento y navegación entre vistas.
-*   **[Axios](https://axios-http.com/)**: Para el consumo de la PokeAPI.
+*   **[React](https://reactjs.org/)**: Librería principal para la UI.
+*   **[Vite](https://vitejs.dev/)**: Entorno de desarrollo rápido.
+*   **[Styled Components](https://styled-components.com/)**: Estilizado dinámico y theming.
+*   **[Framer Motion](https://www.framer.com/motion/)**: Animaciones fluidas y transiciones.
+*   **[React Router](https://reactrouter.com/)**: Navegación SPA.
+*   **[Axios](https://axios-http.com/)**: Cliente HTTP para PokeAPI.
 
 ### Móvil / Nativo
-*   **[Capacitor](https://capacitorjs.com/)**: Runtime para convertir la web app en una aplicación nativa de Android.
-*   **Android Studio**: Para la compilación y ejecución en dispositivos Android.
+*   **[Capacitor](https://capacitorjs.com/)**: Runtime nativo.
+    *   `@capacitor-community/text-to-speech`: Para la síntesis de voz nativa.
+*   **Android Studio**: Compilación y despliegue en Android.
 
 ## 📦 Instalación y Ejecución
 
@@ -56,7 +54,7 @@ La aplicación simula la experiencia de una Pokedex real:
     ```bash
     npm run dev
     ```
-3.  **Compilar para Android**:
+3.  **Sincronizar y Abrir en Android**:
     ```bash
     npm run build
     npx cap sync
@@ -64,4 +62,4 @@ La aplicación simula la experiencia de una Pokedex real:
     ```
 
 ---
-Desarrollado con ❤️ para fans de Pokémon.
+Desarrollado con ❤️ para entrenadores Pokémon.
