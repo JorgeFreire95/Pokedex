@@ -3,8 +3,8 @@ import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
   :root {
-    --pokedex-red: #DC0A2D;
-    --pokedex-dark-red: #8B0000;
+    --pokedex-red: #F15F3E; /* Rotom Orange */
+    --pokedex-dark-red: #AB2810; /* Darker Orange for shadows/accents */
     --screen-bg: #232323;
     --screen-text: #FFFFFF;
     --type-grass: #78C850;

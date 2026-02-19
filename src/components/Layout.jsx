@@ -6,35 +6,55 @@ import { useSound } from '../hooks/useSound';
 
 const PokedexHeader = styled.div`
   display: flex;
-  align-items: center;
+  justify-content: center;
+  align-items: flex-end;
   margin-bottom: 20px;
-  padding-bottom: 20px;
-  border-bottom: 4px solid var(--pokedex-dark-red);
+  padding-bottom: 10px;
+  position: relative;
+  /* Removed border-bottom for cleaner Rotom look */
 `;
 
-const BigBlueLight = styled.div`
-  width: 60px;
-  height: 60px;
-  background: radial-gradient(circle at 30% 30%, #44AAFF, #0055AA);
-  border: 4px solid white;
+const RotomSpike = styled.div`
+  position: absolute;
+  top: -40px; /* Adjust based on global padding */
+  width: 0; 
+  height: 0; 
+  border-left: 35px solid transparent;
+  border-right: 35px solid transparent;
+  border-bottom: 50px solid var(--pokedex-red);
+  z-index: 10;
+  filter: drop-shadow(0 -2px 2px rgba(0,0,0,0.1));
+`;
+
+const RotomEye = styled.div`
+  width: 80px;
+  height: 100px;
+  background: radial-gradient(ellipse at 60% 30%, #88CCFF 0%, #44AAFF 40%, #0066CC 100%);
+  border: 4px solid #1a1a1a;
   border-radius: 50%;
-  margin-right: 20px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  margin: 0 15px;
+  position: relative;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  overflow: hidden;
+  transition: transform 0.1s ease;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 25px;
+    height: 35px;
+    background: white;
+    border-radius: 50%;
+    transform: rotate(15deg);
+    box-shadow: 0 0 5px rgba(255,255,255,0.8);
+  }
+
+  /* Optional: Simple blink effect could be added here later */
 `;
 
-const SmallLights = styled.div`
-  display: flex;
-  gap: 10px;
-`;
-
-const Light = styled.div`
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 2px solid white;
-  background-color: ${props => props.color};
-  box-shadow: inset 2px 2px 2px rgba(255,255,255,0.5);
-`;
+/* Removed BigBlueLight, SmallLights, Light */
 
 const ScreenContainer = styled.div`
   background-color: #DEDEFF;
@@ -131,7 +151,7 @@ const DPadControls = ({ scrollRef }) => {
   const { playSound } = useSound();
 
   const handleScroll = (direction) => {
-    playSound('move');
+    playSound(direction === 'up' ? 'dpad-up' : 'dpad-down');
     if (scrollRef.current) {
       scrollRef.current.scrollBy({
         top: direction === 'up' ? -100 : 100,
@@ -141,23 +161,23 @@ const DPadControls = ({ scrollRef }) => {
   };
 
   const handleLeft = () => {
-    playSound('move');
+    playSound('dpad-left');
     if (onLeft) onLeft();
   };
 
   const handleRight = () => {
-    playSound('move');
+    playSound('dpad-right');
     if (onRight) onRight();
   };
 
   return (
     <Controls>
       <div style={{ display: 'flex', gap: '10px' }}>
-        <HomeButton onClick={() => { playSound('click'); navigate('/'); }} title="Menú Principal" />
+        <HomeButton onClick={() => { playSound('home'); navigate('/'); }} title="Menú Principal" />
       </div>
       <DPad>
         <DPadButton className="up" onClick={() => handleScroll('up')} />
-        <DPadButton className="center" />
+        <DPadButton className="center" onClick={() => playSound('dpad-center')} />
         <DPadButton className="right" onClick={handleRight} />
         <DPadButton className="down" onClick={() => handleScroll('down')} />
         <DPadButton className="left" onClick={handleLeft} />
@@ -172,12 +192,9 @@ const LayoutContent = ({ children }) => {
   return (
     <>
       <PokedexHeader>
-        <BigBlueLight />
-        <SmallLights>
-          <Light color="#FF0000" />
-          <Light color="#FFFF00" />
-          <Light color="#00FF00" />
-        </SmallLights>
+        <RotomSpike />
+        <RotomEye />
+        <RotomEye />
       </PokedexHeader>
 
       <ScreenContainer>

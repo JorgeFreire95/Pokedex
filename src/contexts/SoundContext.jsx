@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect, useRef } from 'react';
+import { soundSynthesizer } from '../utils/soundSynthesizer';
 
 // Import sound files (assuming they will be placed in assets/sounds)
 // If files don't exist yet, we'll handle it gracefully or use placeholders
@@ -27,55 +28,21 @@ export const SoundProvider = ({ children }) => {
     const [volume, setVolume] = useState(0.5);
 
     // Audio references
-    const bgmRef = useRef(null);
-    const sfxRef = useRef({});
+    // Removed file loading logic as we are using procedural synthesis
 
     // Initialize sounds
     useEffect(() => {
-        // Background Music
-        // We expect a file at /sounds/bgm.wav
-        bgmRef.current = new Audio('/sounds/bgm.wav');
-        bgmRef.current.loop = true;
-        bgmRef.current.volume = volume * 0.3; // BGM usually softer
-
-        // SFX
-        const sfxNames = ['click', 'move', 'open', 'back', 'success', 'close'];
-        sfxNames.forEach(name => {
-            sfxRef.current[name] = new Audio(`/sounds/${name}.wav`);
-        });
-
-        return () => {
-            if (bgmRef.current) {
-                bgmRef.current.pause();
-                bgmRef.current = null;
-            }
-        };
+        // Initialize synthesizer on mount (or first interaction)
+        soundSynthesizer.init();
     }, []);
 
     // Handle BGM Playback
-    useEffect(() => {
-        if (bgmRef.current) {
-            bgmRef.current.volume = isMuted ? 0 : volume * 0.3;
-            if (!isMuted) {
-                // user interaction is required for this to work automatically
-                bgmRef.current.play().catch(e => console.log("Audio play failed (user interaction needed):", e));
-            } else {
-                bgmRef.current.pause();
-            }
-        }
-    }, [isMuted, volume]);
+    // Note: BGM is currently disabled/placeholder as we focus on SFX synthesis
+    // To add BGM later, we can use a similar synthesis loop or load a file if provided.
 
     const playSound = (name) => {
         if (isMuted) return;
-
-        if (sfxRef.current[name]) {
-            // Clone node to allow overlapping sounds
-            const sound = sfxRef.current[name].cloneNode();
-            sound.volume = volume;
-            sound.play().catch(e => console.log(`Failed to play ${name}:`, e));
-        } else {
-            console.warn(`Sound "${name}" not found`);
-        }
+        soundSynthesizer.play(name);
     };
 
     const toggleMute = () => setIsMuted(prev => !prev);

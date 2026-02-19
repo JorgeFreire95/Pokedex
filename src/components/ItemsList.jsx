@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { getItemsList } from '../services/api';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSound } from '../hooks/useSound';
@@ -139,36 +139,101 @@ const CloseButton = styled.button`
   }
 `;
 
+const Controls = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+`;
+
+const Button = styled.button`
+  background-color: #222;
+  color: white;
+  border: 2px solid #555;
+  padding: 5px 10px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 8px;
+  cursor: pointer;
+  border-radius: 5px;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &:hover:not(:disabled) {
+    background-color: #444;
+  }
+`;
+
 const ItemsList = () => {
+  const location = useLocation();
+  const { offset: startOffset = 0, limit: totalLimit = 160, title = 'Items' } = location.state || {};
+
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [offset, setOffset] = useState(startOffset);
   const { playSound } = useSound();
+  const PAGE_SIZE = 20; // 4 columns * 5 rows
 
   useEffect(() => {
-    // Fetch enough to cover most Gen 1 items
-    getItemsList(60).then(data => {
+    setLoading(true);
+    // Ensure we don't fetch past the generation limit
+    const genEndOffset = startOffset + totalLimit;
+    const remainingInGen = genEndOffset - offset;
+    const fetchLimit = Math.min(PAGE_SIZE, remainingInGen);
+
+    if (fetchLimit <= 0) {
+      setItems([]);
+      setLoading(false);
+      return;
+    }
+
+    getItemsList(fetchLimit, offset).then(data => {
       setItems(data);
       setLoading(false);
     });
-  }, []);
+  }, [offset, startOffset, totalLimit]);
 
-  if (loading) return <LoadingText>Cargando...</LoadingText>;
+  const handleNext = () => {
+    playSound('move');
+    if (offset + PAGE_SIZE < startOffset + totalLimit) {
+      setOffset(prev => prev + PAGE_SIZE);
+    }
+  };
+
+  const handlePrev = () => {
+    playSound('move');
+    if (offset - PAGE_SIZE >= startOffset) {
+      setOffset(prev => prev - PAGE_SIZE);
+    }
+  };
 
   return (
     <div>
       <Header>
         <BackButton to="/items" onClick={() => playSound('back')}>Atrás</BackButton>
-        <Title>Objetos</Title>
+        <Title>{title}</Title>
       </Header>
-      <ListContainer>
-        {items.map(item => (
-          <ItemCard key={item.name} onClick={() => { playSound('open'); setSelectedItem(item); }}>
-            {item.sprite && <ItemImage src={item.sprite} alt={item.name} />}
-            <ItemName>{item.name}</ItemName>
-          </ItemCard>
-        ))}
-      </ListContainer>
+
+      {loading ? (
+        <LoadingText>Cargando...</LoadingText>
+      ) : (
+        <>
+          <ListContainer>
+            {items.map(item => (
+              <ItemCard key={item.originalName} onClick={() => { playSound('open'); setSelectedItem(item); }}>
+                {item.sprite && <ItemImage src={item.sprite} alt={item.name} />}
+                <ItemName>{item.name}</ItemName>
+              </ItemCard>
+            ))}
+          </ListContainer>
+          <Controls>
+            <Button onClick={handlePrev} disabled={offset === 0}>Prev</Button>
+            <Button onClick={handleNext} disabled={items.length < PAGE_SIZE}>Next</Button>
+          </Controls>
+        </>
+      )}
 
       <AnimatePresence>
         {selectedItem && (

@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { useLocation } from 'react-router-dom';
 import { getPokemonList } from '../services/api';
 import PokemonCard from './PokemonCard';
 
@@ -48,45 +49,55 @@ const Button = styled.button`
 `;
 
 const PokemonList = () => {
+    const location = useLocation();
+    // Default to Gen 1 if no state provided
+    const { offset: startOffset = 0, limit: totalLimit = 151, title = 'Kanto' } = location.state || {};
+
     const [pokemon, setPokemon] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [offset, setOffset] = useState(0);
+    const [offset, setOffset] = useState(startOffset);
     const { setOnLeft, setOnRight } = useDPad();
     const { playSound } = useSound();
-    const LIMIT = 30;
-    const TOTAL_GEN1 = 151;
+    const PAGE_SIZE = 30;
 
     const handleNext = () => {
         playSound('move');
-        if (offset + LIMIT < TOTAL_GEN1) {
-            setOffset(o => o + LIMIT);
+        // Check if next page would exceed the generation's total limit
+        // Current offset + PAGE_SIZE must be less than startOffset + totalLimit
+        if (offset + PAGE_SIZE < startOffset + totalLimit) {
+            setOffset(o => o + PAGE_SIZE);
         }
     };
 
     const handlePrev = () => {
         playSound('move');
-        if (offset - LIMIT >= 0) {
-            setOffset(o => o - LIMIT);
+        // Check if prev page would go below startOffset
+        if (offset - PAGE_SIZE >= startOffset) {
+            setOffset(o => o - PAGE_SIZE);
         }
     };
 
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
-            const effectiveLimit = Math.min(LIMIT, TOTAL_GEN1 - offset);
+            // Calculate how many items to fetch for this page
+            // We want PAGE_SIZE items, but shouldn't exceed the generation's specific end point
+            const genEndOffset = startOffset + totalLimit;
+            const remainingInGen = genEndOffset - offset;
+            const fetchLimit = Math.min(PAGE_SIZE, remainingInGen);
 
-            if (effectiveLimit <= 0) {
+            if (fetchLimit <= 0) {
                 setPokemon([]);
                 setLoading(false);
                 return;
             }
 
-            const data = await getPokemonList(effectiveLimit, offset);
+            const data = await getPokemonList(fetchLimit, offset);
             setPokemon(data);
             setLoading(false);
         };
         fetchData();
-    }, [offset]);
+    }, [offset, startOffset, totalLimit]);
 
     useEffect(() => {
         setOnLeft(() => handlePrev);
@@ -96,9 +107,9 @@ const PokemonList = () => {
             setOnLeft(null);
             setOnRight(null);
         };
-    }, [offset]); // Re-bind on offset change to capture new state in closures
+    }, [offset, startOffset, totalLimit]);
 
-    if (loading) return <LoadingText>Loading...</LoadingText>;
+    if (loading) return <LoadingText>Cargando {title}...</LoadingText>;
 
     return (
         <div>
@@ -108,8 +119,8 @@ const PokemonList = () => {
                 ))}
             </ListContainer>
             <Controls>
-                <Button onClick={handlePrev} disabled={offset === 0}>Prev</Button>
-                <Button onClick={handleNext} disabled={offset + LIMIT >= TOTAL_GEN1}>Next</Button>
+                <Button onClick={handlePrev} disabled={offset <= startOffset}>Prev</Button>
+                <Button onClick={handleNext} disabled={offset + PAGE_SIZE >= startOffset + totalLimit}>Next</Button>
             </Controls>
         </div>
     );

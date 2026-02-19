@@ -52,8 +52,40 @@ const GenerationSelection = () => {
     <Container>
       <Title>SELECCIONAR GENERACION</Title>
 
-      <GenButton to="/pokemons/list" onClick={() => playSound('open')}>
+      <GenButton to="/pokemons/list" state={{ offset: 0, limit: 151, title: 'Kanto' }} onClick={() => playSound('open')}>
         Primera Generación (Kanto)
+      </GenButton>
+
+      <GenButton to="/pokemons/list" state={{ offset: 151, limit: 100, title: 'Johto' }} onClick={() => playSound('open')}>
+        Segunda Generación (Johto)
+      </GenButton>
+
+      <GenButton to="/pokemons/list" state={{ offset: 251, limit: 135, title: 'Hoenn' }} onClick={() => playSound('open')}>
+        Tercera Generación (Hoenn)
+      </GenButton>
+
+      <GenButton to="/pokemons/list" state={{ offset: 386, limit: 107, title: 'Sinnoh' }} onClick={() => playSound('open')}>
+        Cuarta Generación (Sinnoh)
+      </GenButton>
+
+      <GenButton to="/pokemons/list" state={{ offset: 493, limit: 156, title: 'Teselia' }} onClick={() => playSound('open')}>
+        Quinta Generación (Teselia)
+      </GenButton>
+
+      <GenButton to="/pokemons/list" state={{ offset: 649, limit: 72, title: 'Kalos' }} onClick={() => playSound('open')}>
+        Sexta Generación (Kalos)
+      </GenButton>
+
+      <GenButton to="/pokemons/list" state={{ offset: 721, limit: 88, title: 'Alola' }} onClick={() => playSound('open')}>
+        Septima Generación (Alola)
+      </GenButton>
+
+      <GenButton to="/pokemons/list" state={{ offset: 809, limit: 96, title: 'Galar' }} onClick={() => playSound('open')}>
+        Octava Generación (Galar)
+      </GenButton>
+
+      <GenButton to="/pokemons/list" state={{ offset: 905, limit: 120, title: 'Paldea' }} onClick={() => playSound('open')}>
+        Novena Generación (Paldea)
       </GenButton>
     </Container>
   );

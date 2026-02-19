@@ -46,15 +46,51 @@ const GenButton = styled(Link)`
   }
 `;
 
+const GridContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+  width: 100%;
+  padding-bottom: 20px;
+  justify-items: center;
+  overflow-y: auto;
+`;
+
 const ItemGenerationSelection = () => {
   const { playSound } = useSound();
   return (
     <Container>
       <Title>SELECCIONAR GENERACION</Title>
 
-      <GenButton to="/items/list" onClick={() => playSound('open')}>
-        Primera Generación (Kanto)
-      </GenButton>
+      <GridContainer>
+        <GenButton to="/items/list" state={{ offset: 0, limit: 160, title: 'Kanto' }} onClick={() => playSound('open')}>
+          Gen 1 (Kanto)
+        </GenButton>
+        <GenButton to="/items/list" state={{ offset: 160, limit: 100, title: 'Johto' }} onClick={() => playSound('open')}>
+          Gen 2 (Johto)
+        </GenButton>
+        <GenButton to="/items/list" state={{ offset: 260, limit: 100, title: 'Hoenn' }} onClick={() => playSound('open')}>
+          Gen 3 (Hoenn)
+        </GenButton>
+        <GenButton to="/items/list" state={{ offset: 360, limit: 100, title: 'Sinnoh' }} onClick={() => playSound('open')}>
+          Gen 4 (Sinnoh)
+        </GenButton>
+        <GenButton to="/items/list" state={{ offset: 460, limit: 100, title: 'Teselia' }} onClick={() => playSound('open')}>
+          Gen 5 (Teselia)
+        </GenButton>
+        <GenButton to="/items/list" state={{ offset: 560, limit: 100, title: 'Kalos' }} onClick={() => playSound('open')}>
+          Gen 6 (Kalos)
+        </GenButton>
+        <GenButton to="/items/list" state={{ offset: 660, limit: 100, title: 'Alola' }} onClick={() => playSound('open')}>
+          Gen 7 (Alola)
+        </GenButton>
+        <GenButton to="/items/list" state={{ offset: 760, limit: 100, title: 'Galar' }} onClick={() => playSound('open')}>
+          Gen 8 (Galar)
+        </GenButton>
+        <GenButton to="/items/list" state={{ offset: 860, limit: 140, title: 'Paldea' }} onClick={() => playSound('open')}>
+          Gen 9 (Paldea)
+        </GenButton>
+      </GridContainer>
     </Container>
   );
 };

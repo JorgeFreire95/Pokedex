@@ -48,19 +48,33 @@ export const getPokemonById = async (id) => {
       }
     });
 
-    // Filter moves for Gen 1 (Red/Blue) and translate
-    const gen1Moves = data.moves.filter(moveItem =>
-      moveItem.version_group_details.some(detail => detail.version_group.name === 'red-blue')
+    // Filter moves for Gen 1 to Gen 9
+    // We want to show moves available in these generations
+    const relevantVersions = [
+      'red-blue', 'yellow',
+      'gold-silver', 'crystal',
+      'ruby-sapphire', 'emerald', 'firered-leafgreen',
+      'diamond-pearl', 'platinum', 'heartgold-soulsilver',
+      'black-white', 'black-2-white-2',
+      'x-y', 'omega-ruby-alpha-sapphire',
+      'sun-moon', 'ultra-sun-ultra-moon', 'lets-go-pikachu-lets-go-eevee',
+      'sword-shield', 'brilliant-diamond-shining-pearl', 'legends-arceus',
+      'scarlet-violet'
+    ];
+
+    const relevantMoves = data.moves.filter(moveItem =>
+      moveItem.version_group_details.some(detail => relevantVersions.includes(detail.version_group.name))
     );
 
-    const movePromises = gen1Moves.map(async (moveItem) => {
+    const movePromises = relevantMoves.map(async (moveItem) => {
       try {
         const moveResponse = await axios.get(moveItem.move.url);
         const spanishEntry = moveResponse.data.names.find(
           (entry) => entry.language.name === 'es'
         );
 
-        const versionDetail = moveItem.version_group_details.find(d => d.version_group.name === 'red-blue');
+        // Find the earliest relevant version detail to display level
+        const versionDetail = moveItem.version_group_details.find(d => relevantVersions.includes(d.version_group.name));
 
         return {
           name: spanishEntry ? spanishEntry.name : moveItem.move.name,

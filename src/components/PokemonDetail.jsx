@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { getPokemonById } from '../services/api';
 import { typeTranslations, statTranslations } from '../utils/translations';
 import { useSound } from '../hooks/useSound';
+import { soundSynthesizer } from '../utils/soundSynthesizer';
 
 const DetailContainer = styled(motion.div)`
   padding: 10px;
@@ -163,7 +164,31 @@ const PokemonDetail = () => {
   useEffect(() => {
     setPokemon(null);
     getPokemonById(id).then(data => setPokemon(data));
+
+    // Cancel any previous speech when navigating to a new ID
+    soundSynthesizer.cancelSpeech();
   }, [id]);
+
+  useEffect(() => {
+    if (pokemon) {
+      // Construct narrative
+      const typeText = pokemon.types.map(t => typeTranslations[t.type.name] || t.type.name).join(' y ');
+
+      const moveSamples = pokemon.moves_localized
+        ? pokemon.moves_localized.slice(0, 3).map(m => m.name).join(', ')
+        : '';
+
+      const narrative = `${pokemon.name}. Pokemon de tipo ${typeText}. ${moveSamples ? `Conoce movimientos como ${moveSamples}.` : ''}`;
+
+      // Speak
+      soundSynthesizer.speak(narrative);
+    }
+
+    // Cleanup on unmount
+    return () => {
+      soundSynthesizer.cancelSpeech();
+    };
+  }, [pokemon]);
 
   if (!pokemon) return <div style={{ textAlign: 'center', marginTop: '50px' }}>Cargando...</div>;
 
