@@ -373,3 +373,303 @@ export const unovaGyms = [
         badge_id: 'legend-badge',
     }
 ];
+
+export const kalosGyms = [
+    {
+        city: 'Santalune City',
+        city_es: 'Ciudad Novarte',
+        leader: 'Viola/Violeta',
+        type: 'bug',
+        badge: 'Bug Badge',
+        badge_es: 'Medalla Insecto',
+        badge_id: 'bug-badge',
+    },
+    {
+        city: 'Cyllage City',
+        city_es: 'Ciudad Relieve',
+        leader: 'Grant/Lino',
+        type: 'rock',
+        badge: 'Cliff Badge',
+        badge_es: 'Medalla Muro',
+        badge_id: 'cliff-badge',
+    },
+    {
+        city: 'Shalour City',
+        city_es: 'Ciudad Yantra',
+        leader: 'Korrina/Corelia',
+        type: 'fighting',
+        badge: 'Rumble Badge',
+        badge_es: 'Medalla Lid',
+        badge_id: 'rumble-badge',
+    },
+    {
+        city: 'Coumarine City',
+        city_es: 'Ciudad Témpera',
+        leader: 'Ramos/Amaro',
+        type: 'grass',
+        badge: 'Plant Badge',
+        badge_es: 'Medalla Hoja',
+        badge_id: 'plant-badge',
+    },
+    {
+        city: 'Lumiose City',
+        city_es: 'Ciudad Luminalia',
+        leader: 'Clemont/Lem',
+        type: 'electric',
+        badge: 'Voltage Badge',
+        badge_es: 'Medalla Voltaje',
+        badge_id: 'voltage-badge',
+    },
+    {
+        city: 'Laverre City',
+        city_es: 'Ciudad Romantis',
+        leader: 'Valerie/Valeria',
+        type: 'fairy',
+        badge: 'Fairy Badge',
+        badge_es: 'Medalla Hada',
+        badge_id: 'fairy-badge',
+    },
+    {
+        city: 'Anistar City',
+        city_es: 'Ciudad Fluxus',
+        leader: 'Olympia/Ástrid',
+        type: 'psychic',
+        badge: 'Psychic Badge',
+        badge_es: 'Medalla Psique',
+        badge_id: 'psychic-badge',
+    },
+    {
+        city: 'Snowbelle City',
+        city_es: 'Ciudad Fractal',
+        leader: 'Wulfric/Édel',
+        type: 'ice',
+        badge: 'Iceberg Badge',
+        badge_es: 'Medalla Iceberg',
+        badge_id: 'iceberg-badge',
+    }
+];
+
+export const alolaGyms = [
+    {
+        city: 'Hau\'oli City', // Trial Captain Ilima
+        city_es: 'Ciudad Hauoli',
+        leader: 'Ilima/Liam',
+        type: 'normal',
+        badge: 'Normalium Z',
+        badge_es: 'Normastal Z',
+        badge_id: 'normalium-z',
+    },
+    {
+        city: 'Iki Town', // Grand Trial Hala
+        city_es: 'Pueblo Lilii',
+        leader: 'Hala/Kaudan',
+        type: 'fighting',
+        badge: 'Fightinium Z',
+        badge_es: 'Lizastal Z',
+        badge_id: 'fightinium-z',
+    },
+    {
+        city: 'Paniola Town', // Trial Captain Lana (Brooklet Hill nearby)
+        city_es: 'Pueblo Ohana',
+        leader: 'Lana/Nereida',
+        type: 'water',
+        badge: 'Waterium Z',
+        badge_es: 'Hidrostal Z',
+        badge_id: 'waterium-z',
+    },
+    {
+        city: 'Wela Volcano Park', // Trial Captain Kiawe
+        city_es: 'Área Volcánica Wela',
+        leader: 'Kiawe',
+        type: 'fire',
+        badge: 'Firium Z',
+        badge_es: 'Pirostal Z',
+        badge_id: 'firium-z',
+    },
+    {
+        city: 'Lush Jungle', // Trial Captain Mallow
+        city_es: 'Jungla Umbría',
+        leader: 'Mallow/Lulú',
+        type: 'grass',
+        badge: 'Grassium Z',
+        badge_es: 'Fitostal Z',
+        badge_id: 'grassium-z',
+    },
+    {
+        city: 'Konikoni City', // Grand Trial Olivia
+        city_es: 'Ciudad Konikoni',
+        leader: 'Olivia/Mayla',
+        type: 'rock',
+        badge: 'Rockium Z',
+        badge_es: 'Litostal Z',
+        badge_id: 'rockium-z',
+    },
+    {
+        city: 'Mount Hokulani', // Trial Captain Sophocles
+        city_es: 'Pico Hokulani',
+        leader: 'Sophocles/Chris',
+        type: 'electric',
+        badge: 'Electrium Z',
+        badge_es: 'Electrostal Z',
+        badge_id: 'electrium-z',
+    },
+    {
+        city: 'Po Town', // Grand Trial Nanu (Malie City is better for map but Po Town is his base)
+        city_es: 'Pueblo Po',
+        leader: 'Nanu/Denio',
+        type: 'dark',
+        badge: 'Darkinium Z',
+        badge_es: 'Nictostal Z',
+        badge_id: 'darkinium-z',
+    }
+];
+
+export const galarGyms = [
+    {
+        city: 'Turffield',
+        city_es: 'Pueblo Hoyuelo',
+        leader: 'Milo/Percy',
+        type: 'grass',
+        badge: 'Grass Badge',
+        badge_es: 'Medalla Planta',
+        badge_id: 'grass-badge',
+    },
+    {
+        city: 'Hulbury',
+        city_es: 'Pueblo Amura',
+        leader: 'Nessa/Cathy',
+        type: 'water',
+        badge: 'Water Badge',
+        badge_es: 'Medalla Agua',
+        badge_id: 'water-badge',
+    },
+    {
+        city: 'Motostoke',
+        city_es: 'Ciudad Motor',
+        leader: 'Kabu',
+        type: 'fire',
+        badge: 'Fire Badge',
+        badge_es: 'Medalla Fuego',
+        badge_id: 'fire-badge',
+    },
+    {
+        city: 'Stow-on-Side',
+        city_es: 'Pueblo Ladera',
+        leader: 'Bea/Judith / Allister/Alistair',
+        type: 'fighting', // or ghost
+        badge: 'Fighting/Ghost Badge',
+        badge_es: 'Medalla Lucha/Fantasma',
+        badge_id: 'fighting-ghost-badge',
+    },
+    {
+        city: 'Ballonlea',
+        city_es: 'Pueblo Plié',
+        leader: 'Opal/Bede/Sally/Berto',
+        type: 'fairy',
+        badge: 'Fairy Badge',
+        badge_es: 'Medalla Hada',
+        badge_id: 'fairy-badge',
+    },
+    {
+        city: 'Circhester',
+        city_es: 'Pueblo Auriga',
+        leader: 'Gordie/Milo / Melony/Mel',
+        type: 'rock', // or ice
+        badge: 'Rock/Ice Badge',
+        badge_es: 'Medalla Roca/Hielo',
+        badge_id: 'rock-ice-badge',
+    },
+    {
+        city: 'Spikemuth',
+        city_es: 'Pueblo Crampón',
+        leader: 'Piers/Marnie/Nerio/Roxy',
+        type: 'dark',
+        badge: 'Dark Badge',
+        badge_es: 'Medalla Siniestra',
+        badge_id: 'dark-badge',
+    },
+    {
+        city: 'Hammerlocke',
+        city_es: 'Ciudad Artejo',
+        leader: 'Raihan/Roy',
+        type: 'dragon',
+        badge: 'Dragon Badge',
+        badge_es: 'Medalla Dragón',
+        badge_id: 'dragon-badge',
+    }
+];
+
+export const paldeaGyms = [
+    {
+        city: 'Cortondo',
+        city_es: 'Pueblo Pirotín',
+        leader: 'Katy/Araceli',
+        type: 'bug',
+        badge: 'Bug Badge',
+        badge_es: 'Medalla Bicho',
+        badge_id: 'bug-badge-paldea',
+    },
+    {
+        city: 'Artazon',
+        city_es: 'Pueblo Altamía',
+        leader: 'Brassius/Brais',
+        type: 'grass',
+        badge: 'Grass Badge',
+        badge_es: 'Medalla Planta',
+        badge_id: 'grass-badge-paldea',
+    },
+    {
+        city: 'Levincia',
+        city_es: 'Ciudad Leudal',
+        leader: 'Iono/E-Nigma',
+        type: 'electric',
+        badge: 'Electric Badge',
+        badge_es: 'Medalla Eléctrica',
+        badge_id: 'electric-badge-paldea',
+    },
+    {
+        city: 'Cascarrafa',
+        city_es: 'Ciudad Cántara',
+        leader: 'Kofu/Fuco',
+        type: 'water',
+        badge: 'Water Badge',
+        badge_es: 'Medalla Agua',
+        badge_id: 'water-badge-paldea',
+    },
+    {
+        city: 'Medali',
+        city_es: 'Pueblo Mestura',
+        leader: 'Larry/Laureano',
+        type: 'normal',
+        badge: 'Normal Badge',
+        badge_es: 'Medalla Normal',
+        badge_id: 'normal-badge-paldea',
+    },
+    {
+        city: 'Montenevera',
+        city_es: 'Pueblo Hozkailu',
+        leader: 'Ryme/Lima',
+        type: 'ghost',
+        badge: 'Ghost Badge',
+        badge_es: 'Medalla Fantasma',
+        badge_id: 'ghost-badge-paldea',
+    },
+    {
+        city: 'Alfornada',
+        city_es: 'Pueblo Alforno',
+        leader: 'Tulip/Tuli',
+        type: 'psychic',
+        badge: 'Psychic Badge',
+        badge_es: 'Medalla Psíquica',
+        badge_id: 'psychic-badge-paldea',
+    },
+    {
+        city: 'Glaseado Mountain',
+        city_es: 'Sierra Napada',
+        leader: 'Grusha/Grusha',
+        type: 'ice',
+        badge: 'Ice Badge',
+        badge_es: 'Medalla Hielo',
+        badge_id: 'ice-badge-paldea',
+    }
+];

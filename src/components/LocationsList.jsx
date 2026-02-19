@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link, useLocation } from 'react-router-dom';
-import { kantoGyms, johtoGyms, hoennGyms, sinnohGyms, unovaGyms } from '../data/gyms';
+import { kantoGyms, johtoGyms, hoennGyms, sinnohGyms, unovaGyms, kalosGyms, alolaGyms, galarGyms, paldeaGyms } from '../data/gyms';
 import { useSound } from '../hooks/useSound';
 
 import KantoMap from './KantoMap';
@@ -10,6 +10,10 @@ import JohtoMap from './JohtoMap';
 import HoennMap from './HoennMap';
 import SinnohMap from './SinnohMap';
 import UnovaMap from './UnovaMap';
+import KalosMap from './KalosMap';
+import AlolaMap from './AlolaMap';
+import GalarMap from './GalarMap';
+import PaldeaMap from './PaldeaMap';
 
 const Container = styled.div`
   padding-bottom: 20px;
@@ -138,6 +142,7 @@ const typeColors = {
   dragon: 'var(--type-dragon)',
   steel: '#B8B8D0',
   flying: '#A890F0',
+  dark: 'var(--type-dark)',
 };
 
 const LocationsList = () => {
@@ -149,6 +154,26 @@ const LocationsList = () => {
   let gyms, MapComponent, regionName;
 
   switch (region) {
+    case 'paldea':
+      gyms = paldeaGyms;
+      MapComponent = PaldeaMap;
+      regionName = 'Paldea';
+      break;
+    case 'galar':
+      gyms = galarGyms;
+      MapComponent = GalarMap;
+      regionName = 'Galar';
+      break;
+    case 'alola':
+      gyms = alolaGyms;
+      MapComponent = AlolaMap;
+      regionName = 'Alola';
+      break;
+    case 'kalos':
+      gyms = kalosGyms;
+      MapComponent = KalosMap;
+      regionName = 'Kalos';
+      break;
     case 'unova':
       gyms = unovaGyms;
       MapComponent = UnovaMap;
