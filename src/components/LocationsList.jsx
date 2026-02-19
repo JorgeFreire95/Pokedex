@@ -1,11 +1,15 @@
 
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { kantoGyms } from '../data/gyms';
+import { Link, useLocation } from 'react-router-dom';
+import { kantoGyms, johtoGyms, hoennGyms, sinnohGyms, unovaGyms } from '../data/gyms';
 import { useSound } from '../hooks/useSound';
 
 import KantoMap from './KantoMap';
+import JohtoMap from './JohtoMap';
+import HoennMap from './HoennMap';
+import SinnohMap from './SinnohMap';
+import UnovaMap from './UnovaMap';
 
 const Container = styled.div`
   padding-bottom: 20px;
@@ -132,25 +136,58 @@ const typeColors = {
   ghost: 'var(--type-ghost)',
   ice: 'var(--type-ice)',
   dragon: 'var(--type-dragon)',
+  steel: '#B8B8D0',
+  flying: '#A890F0',
 };
 
 const LocationsList = () => {
   const [selectedCity, setSelectedCity] = useState(null);
   const { playSound } = useSound();
+  const location = useLocation();
+  const region = location.state?.region || 'kanto';
+
+  let gyms, MapComponent, regionName;
+
+  switch (region) {
+    case 'unova':
+      gyms = unovaGyms;
+      MapComponent = UnovaMap;
+      regionName = 'Teselia';
+      break;
+    case 'sinnoh':
+      gyms = sinnohGyms;
+      MapComponent = SinnohMap;
+      regionName = 'Sinnoh';
+      break;
+    case 'hoenn':
+      gyms = hoennGyms;
+      MapComponent = HoennMap;
+      regionName = 'Hoenn';
+      break;
+    case 'johto':
+      gyms = johtoGyms;
+      MapComponent = JohtoMap;
+      regionName = 'Johto';
+      break;
+    default:
+      gyms = kantoGyms;
+      MapComponent = KantoMap;
+      regionName = 'Kanto';
+  }
 
   return (
     <Container>
       <Header>
         <BackButton to="/locations" onClick={() => playSound('back')}>Atrás</BackButton>
-        <Title>Mapa y Gimnasios</Title>
+        <Title>Mapa y Gimnasios ({regionName})</Title>
       </Header>
 
       <MapContainer>
-        <KantoMap highlightedCity={selectedCity} />
+        <MapComponent highlightedCity={selectedCity} />
       </MapContainer>
 
       <GymList>
-        {kantoGyms.map(gym => (
+        {gyms.map(gym => (
           <GymCard
             key={gym.city}
             color={typeColors[gym.type]}
@@ -165,6 +202,7 @@ const LocationsList = () => {
               <BadgeImage
                 src={`/badges/${gym.badge_id}.svg`}
                 alt={gym.badge_es}
+                onError={(e) => { e.target.style.display = 'none'; }}
               />
               <BadgeName>{gym.badge_es}</BadgeName>
             </BadgeContainer>

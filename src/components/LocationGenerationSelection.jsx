@@ -52,8 +52,24 @@ const LocationGenerationSelection = () => {
     <Container>
       <Title>SELECCIONAR GENERACION</Title>
 
-      <GenButton to="/locations/list" onClick={() => playSound('open')}>
+      <GenButton to="/locations/list" state={{ region: 'kanto' }} onClick={() => playSound('open')}>
         Primera Generación (Kanto)
+      </GenButton>
+
+      <GenButton to="/locations/list" state={{ region: 'johto' }} onClick={() => playSound('open')}>
+        Segunda Generación (Johto)
+      </GenButton>
+
+      <GenButton to="/locations/list" state={{ region: 'hoenn' }} onClick={() => playSound('open')}>
+        Tercera Generación (Hoenn)
+      </GenButton>
+
+      <GenButton to="/locations/list" state={{ region: 'sinnoh' }} onClick={() => playSound('open')}>
+        Cuarta Generación (Sinnoh)
+      </GenButton>
+
+      <GenButton to="/locations/list" state={{ region: 'unova' }} onClick={() => playSound('open')}>
+        Quinta Generación (Teselia)
       </GenButton>
     </Container>
   );
