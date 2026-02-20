@@ -44,8 +44,8 @@ const Title = styled.h1`
   font-size: 14px;
   margin-bottom: 20px;
   text-align: center;
-  color: #222;
-  text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 `;
 
 const Home = () => {
