@@ -13,6 +13,7 @@ import GenerationSelection from './components/GenerationSelection';
 import ItemGenerationSelection from './components/ItemGenerationSelection';
 import LocationGenerationSelection from './components/LocationGenerationSelection';
 import { AnimatePresence } from 'framer-motion';
+import BackButtonHandler from './components/BackButtonHandler';
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -35,6 +36,7 @@ const AnimatedRoutes = () => {
 function App() {
   return (
     <Router>
+      <BackButtonHandler />
       <GlobalStyles />
       <SoundProvider>
         <Layout>
